@@ -1,4 +1,7 @@
 # dnmp debian
+[![Docker Hub](https://img.shields.io/badge/docker-ready-blue.svg)](https://registry.hub.docker.com/u/techdivision/dnmp-debian/)
+[![Docker Automated build](https://img.shields.io/docker/automated/techdivision/dnmp-debian.svg)]()
+
 All-in-One docker image based on debian.
 
 ## Services
