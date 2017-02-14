@@ -7,10 +7,10 @@ All-in-One docker image based on debian.
 - mysql 
 - nginx
 - nodejs
-- php v7.0
+- php v7
 - postfix
 - redis
-- rabbitmq v3.6.1
+- rabbitmq
 - varnish (port: 81)
 
 ## PHP Xdebug 
