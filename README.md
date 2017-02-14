@@ -1,2 +1,2 @@
-# dnmp-debian
-All-in-one docker image based on debian
+# debian:jessie
+All-in-One based on debian:jessie image
