@@ -63,6 +63,9 @@ RUN \
         php7.0-json php7.0-zip php7.0-intl php7.0-bcmath php7.0-xsl php7.0-xml php7.0-mbstring php7.0-xdebug \
         php7.0-mongodb php7.0-ldap php7.0-imagick php7.0-readline && \
 
+    # install composer
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+
     # copy filesystem
     cp -r /tmp/usr / && \
     cp -r /tmp/etc / && \
