@@ -13,7 +13,7 @@ RESTART_FPM=
 NO_PROMPT="false"
 
 # location for xdebug config
-PHP_XDEBUG_CONFIG_FILE="/etc/php7/conf.d/xdebug.ini"
+PHP_XDEBUG_CONFIG_FILE="/etc/php/7.0/fpm/conf.d/20-xdebug.ini"
 
 # loop for any possible parameters
 for i in "$@"
@@ -128,7 +128,7 @@ fi
 
 # Restart fpm via supervisor
 if [[ "${RESTART_FPM}" == "true" || NO_PROMPT == "true" ]]; then
-    /usr/bin/supervisorctl restart php7-fpm
+    /usr/local/bin/supervisorctl restart php7-fpm
 fi
 
 exit 0
