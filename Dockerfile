@@ -43,7 +43,7 @@ RUN \
     # install ...
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
         # general tools
-        openssl rsync git graphicsmagick postfix \
+        openssl rsync git graphicsmagick imagemagick ghostscript ack-grep postfix \
         # oracle java 8
         oracle-java8-installer oracle-java8-set-default \
         # mysql 5.7
