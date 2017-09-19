@@ -19,7 +19,6 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5072E1F5 && \
     curl https://nginx.org/keys/nginx_signing.key | apt-key add - && \
-    curl https://repo.varnish-cache.org/GPG-key.txt | apt-key add - && \
     curl https://www.dotdeb.org/dotdeb.gpg | apt-key add - && \
     curl https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add - && \
     curl https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
