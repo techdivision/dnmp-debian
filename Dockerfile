@@ -45,8 +45,6 @@ RUN \
         openssl rsync git graphicsmagick imagemagick ghostscript ack-grep postfix \
         # oracle java 8
         oracle-java8-installer oracle-java8-set-default \
-        # mysql 5.7
-        mysql-community-client mysql-community-server \
         # nginx
         nginx \
         # varnish
@@ -61,6 +59,21 @@ RUN \
         php7.0 php7.0-cli php7.0-common php7.0-fpm php7.0-curl php7.0-gd php7.0-mcrypt php7.0-mysql php7.0-soap \
         php7.0-json php7.0-zip php7.0-intl php7.0-bcmath php7.0-xsl php7.0-xml php7.0-mbstring php7.0-xdebug \
         php7.0-mongodb php7.0-ldap php7.0-imagick php7.0-readline && \
+
+    # install mysql 5.7
+    { \
+        echo mysql-community-server mysql-community-server/data-dir select ''; \
+        echo mysql-community-server mysql-community-server/root-pass password ''; \
+        echo mysql-community-server mysql-community-server/re-root-pass password ''; \
+        echo mysql-community-server mysql-community-server/remove-test-db select false; \
+    } | debconf-set-selections && \
+    apt-get install -y mysql-community-client mysql-community-server && \
+    # comment out a few problematic configuration values for docker usage
+    find /etc/mysql/ -name '*.cnf' -print0 \
+        | xargs -0 grep -lZE '^(bind-address|log)' \
+        | xargs -rt -0 sed -Ei 's/^(bind-address|log)/#&/' && \
+    # don't reverse lookup hostnames for docker usage
+    echo '[mysqld]\nskip-host-cache\nskip-name-resolve' > /etc/mysql/conf.d/docker.cnf && \
 
     # install elasticsearch plugins
     /usr/share/elasticsearch/bin/plugin install analysis-phonetic && \
