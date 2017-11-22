@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-mysqld  --skip-networking --user mysql 2> /dev/null &
+mysqld --skip-networking --user mysql 2> /dev/null &
 
 mysql="mysql --protocol=socket -uroot"
 

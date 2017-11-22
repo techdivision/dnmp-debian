@@ -7,10 +7,11 @@ COPY fs /tmp/
 
 # start install routine
 RUN \
+
     # install base tools
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
-        vim less tar wget curl apt-transport-https ca-certificates net-tools htop python-pip pv && \
+        vim less tar wget curl apt-transport-https ca-certificates apt-utils net-tools htop python-pip pv && \
 
     # copy repository files
     cp -r /tmp/etc/apt /etc && \
@@ -39,6 +40,10 @@ RUN \
     pip2 install supervisor && \
     pip2 install supervisor-stdout && \
 
+    # add our user and group first to make sure their IDs get assigned consistently,
+    # regardless of whatever dependencies get added
+    groupadd -r mysql && useradd -r -g mysql mysql && \
+
     # install packages
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
         # general tools
@@ -55,12 +60,12 @@ RUN \
         rabbitmq-server \
         # elasticsearch
         elasticsearch \
-        #  php 7.0
+        # php 7.0
         php7.0 php7.0-cli php7.0-common php7.0-fpm php7.0-curl php7.0-gd php7.0-mcrypt php7.0-mysql php7.0-soap \
         php7.0-json php7.0-zip php7.0-intl php7.0-bcmath php7.0-xsl php7.0-xml php7.0-mbstring php7.0-xdebug \
         php7.0-mongodb php7.0-ldap php7.0-imagick php7.0-readline && \
 
-    # install mysql 5.7
+    # mysql 5.7
     { \
         echo mysql-community-server mysql-community-server/data-dir select ''; \
         echo mysql-community-server mysql-community-server/root-pass password ''; \
@@ -68,6 +73,11 @@ RUN \
         echo mysql-community-server mysql-community-server/remove-test-db select false; \
     } | debconf-set-selections && \
     apt-get install -y mysql-community-client mysql-community-server && \
+    mkdir -p /var/lib/mysql /var/run/mysqld && \
+    mysql_ssl_rsa_setup && \
+    chown -R mysql:mysql /var/lib/mysql /var/run/mysqld && \
+    # ensure that /var/run/mysqld (used for socket and lock files) is writable regardless of the UID our mysqld instance ends up having at runtime
+    chmod 777 /var/run/mysqld && \
     # comment out a few problematic configuration values for docker usage
     find /etc/mysql/ -name '*.cnf' -print0 \
         | xargs -0 grep -lZE '^(bind-address|log)' \
@@ -83,9 +93,15 @@ RUN \
     cp -r /tmp/usr / && \
     cp -r /tmp/etc / && \
 
+    # setup filepermissions
+    chmod a+x /usr/local/bin/docker-entrypoint.sh && \
+
     # cleanup
     apt-get clean && \
     rm -rf /tmp/* /var/lib/apt/lists/*
 
+# define entrypoint
+ENTRYPOINT ["docker-entrypoint.sh"]
+
 # define cmd
-CMD ["/usr/local/bin/supervisord", "--nodaemon", "-c", "/etc/supervisord.conf"]
+CMD ["supervisord", "--nodaemon", "-c", "/etc/supervisord.conf"]
