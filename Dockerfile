@@ -1,4 +1,4 @@
-FROM debian:8.7
+FROM debian:jessie
 
 LABEL maintainer "j.zelger@techdivision.com"
 
