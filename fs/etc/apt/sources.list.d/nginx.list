@@ -1,2 +1,2 @@
-deb http://nginx.org/packages/debian/ jessie nginx
-deb-src http://nginx.org/packages/debian/ jessie nginx
+deb http://nginx.org/packages/debian/ stretch nginx
+deb-src http://nginx.org/packages/debian/ stretch nginx
