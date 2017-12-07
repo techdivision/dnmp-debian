@@ -47,7 +47,7 @@ RUN \
     # install packages
     DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
         # general tools
-        openssl rsync git graphicsmagick imagemagick ghostscript ack-grep postfix \
+        openssl rsync git graphicsmagick imagemagick ghostscript ack-grep postfix locales-all \
         # oracle java 8
         oracle-java8-installer oracle-java8-set-default \
         # nginx
