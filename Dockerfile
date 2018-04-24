@@ -19,6 +19,7 @@ RUN \
 
     # add repository keys
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5072E1F5 && \
     curl https://nginx.org/keys/nginx_signing.key | apt-key add - && \
     curl https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add - && \
