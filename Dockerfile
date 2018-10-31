@@ -21,6 +21,7 @@ RUN \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C2518248EEA14886 && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EEA14886 && \
     apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5072E1F5 && \
+    curl https://packages.sury.org/php/apt.gpg | apt-key add - && \
     curl https://nginx.org/keys/nginx_signing.key | apt-key add - && \
     curl https://www.rabbitmq.com/rabbitmq-release-signing-key.asc | apt-key add - && \
     curl https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add - && \
@@ -61,10 +62,10 @@ RUN \
         rabbitmq-server \
         # elasticsearch
         elasticsearch \
-        # php 7.0
-        php7.0 php7.0-cli php7.0-common php7.0-fpm php7.0-curl php7.0-gd php7.0-mcrypt php7.0-mysql php7.0-soap \
-        php7.0-json php7.0-zip php7.0-intl php7.0-bcmath php7.0-xsl php7.0-xml php7.0-mbstring php7.0-xdebug \
-        php7.0-mongodb php7.0-ldap php7.0-imagick php7.0-readline php7.0-sqlite3 && \
+        # php 7.1
+        php7.1 php7.1-cli php7.1-common php7.1-fpm php7.1-curl php7.1-gd php7.1-mcrypt php7.1-mysql php7.1-soap \
+        php7.1-json php7.1-zip php7.1-intl php7.1-bcmath php7.1-xsl php7.1-xml php7.1-mbstring php7.1-xdebug \
+        php7.1-mongodb php7.1-ldap php7.1-imagick php7.1-readline php7.1-sqlite3 && \
 
     # mysql 5.7
     { \
