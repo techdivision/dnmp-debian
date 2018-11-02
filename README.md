@@ -10,7 +10,7 @@ All-in-One docker image based on debian.
 - mysql 
 - nginx
 - nodejs
-- php v7
+- php v7 (7.0, 7.1, 7.2)
 - postfix
 - redis
 - rabbitmq
